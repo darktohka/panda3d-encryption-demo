@@ -39,8 +39,6 @@ class App(ShowBase):
 
         self.entry.bind(DGG.ACCEPT, self.attempt_decryption)
 
-        self.error = self.loader.loadSfx('/phase_1/audio/error.ogg')
-        self.congrats = self.loader.loadSfx('/phase_1/audio/congrats.ogg')
         self.music = self.loader.loadMusic('/phase_1/audio/dweller.ogg')
 
         self.playMusic(self.music, looping=True, volume=0.1)
@@ -53,7 +51,7 @@ class App(ShowBase):
         ).loop()
 
     def open_credits(self):
-        if self.currentCredits:
+        if self.current_credits:
             webbrowser.open('https://www.instagram.com/p/BgmTyb6l8VB')
         else:
             webbrowser.open('https://halleylabs.com')
@@ -84,7 +82,7 @@ class App(ShowBase):
             self.label.setPos(-0.3, 0, 0.25)
 
             self.entry.destroy()
-            self.congrats.play(volume=0.5)
+            self.playSfx(self.loader.loadSfx('/phase_1/audio/congrats.ogg'), volume=0.5)
             self.gift.show()
         else:
             self.label['text'] = 'Incorrect password!'
@@ -92,7 +90,7 @@ class App(ShowBase):
             self.label['text_shadow'] = (0.3, 0, 0, 1)
             self.entry['focus'] = True
 
-            self.error.play()
+            self.playSfx(self.loader.loadSfx('/phase_1/audio/error.ogg'))
 
 app = App()
 app.run()
